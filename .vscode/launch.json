@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-GroupmettingApplication<groupmetting>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.sideproject.groupmetting.GroupmettingApplication",
+      "projectName": "groupmetting",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}
