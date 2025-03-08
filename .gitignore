@@ -45,4 +45,4 @@ mvnw*
 
 # 비밀정보
 src/main/resources/application.properties
-src/main/resources/firebase/ban-moon-firebase-adminsdk-fbsvc-a7f684fd3a.json
+src/main/resources/firebase/*.json
