@@ -43,6 +43,7 @@ logs/
 .mvn/
 mvnw*
 
-#
+# .gitignore에 추가
+.env
 application.properties
-
+application.yml
