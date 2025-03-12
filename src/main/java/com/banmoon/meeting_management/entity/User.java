@@ -1,5 +1,6 @@
 package com.banmoon.meeting_management.entity;
 
+import com.banmoon.meeting_management.domain.SocialLoginType;
 import io.grpc.netty.shaded.io.netty.channel.unix.PeerCredentials;
 import jakarta.persistence.*;
 import lombok.*;
@@ -8,7 +9,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class User {
@@ -23,7 +25,12 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    private String displayName;
+    private String name;
 
-    private LocalDateTime createdAt;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)  // Enum을 문자열로 저장
+    private SocialLoginType socialLoginType;
+
+    private String profileImage;
 }
+
