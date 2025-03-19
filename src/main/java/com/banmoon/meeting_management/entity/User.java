@@ -32,5 +32,13 @@ public class User {
     private SocialLoginType socialLoginType;
 
     private String profileImage;
+
+    public User(String uid, String email, String displayName, String photoUrl, SocialLoginType socialLoginType) {
+        this.uid = uid;
+        this.email = email;
+        this.name = displayName;
+        this.profileImage = photoUrl;
+        this.socialLoginType = socialLoginType;
+    }
 }
 

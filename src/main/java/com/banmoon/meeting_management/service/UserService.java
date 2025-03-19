@@ -5,23 +5,29 @@ import com.banmoon.meeting_management.entity.User;
 import com.banmoon.meeting_management.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
-@RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
 
+    @Autowired
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public User findOrCreateUser(String uid, String email, String displayName, String photoUrl, SocialLoginType socialLoginType) {
         return userRepository.findByUid(uid)
                 .orElseGet(() -> {
-                    User newUser = User.builder()
-                            .uid(uid)
-                            .email(email)
-                            .name(displayName)
-                            .profileImage(photoUrl)
-                            .socialLoginType(socialLoginType)
-                            .build();
+//                    User newUser = User.builder()
+//                            .uid(uid)
+//                            .email(email)
+//                            .name(displayName)
+//                            .profileImage(photoUrl)
+//                            .socialLoginType(socialLoginType)
+//                            .build();
+                    User newUser = new User(uid, email, displayName, photoUrl, socialLoginType);
+
                     return userRepository.save(newUser);
                 });
     }

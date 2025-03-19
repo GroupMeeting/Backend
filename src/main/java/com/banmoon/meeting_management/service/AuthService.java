@@ -2,24 +2,27 @@ package com.banmoon.meeting_management.service;
 
 
 import com.banmoon.meeting_management.domain.SocialLoginType;
+import com.banmoon.meeting_management.dto.LoginResponse;
 import com.banmoon.meeting_management.entity.User;
+import com.banmoon.meeting_management.security.JwtProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthService {
     private final UserService userService;
+    private final JwtProvider jwtProvider = null;
+
 
     @Autowired
     public AuthService(UserService userService) { // 🔥 Lombok 없이 직접 주입
         this.userService = userService;
     }
 
-    public User login(String idToken) {
+    public LoginResponse login(String idToken) {
         FirebaseToken firebaseToken = verifyIdToken(idToken); // ID 토큰 검증
         String uid = firebaseToken.getUid();
         String email = firebaseToken.getEmail();
@@ -29,7 +32,11 @@ public class AuthService {
 
         SocialLoginType socialLoginType = getSocialLoginType(issuer);
 
-        return userService.findOrCreateUser(uid, email, displayName, photoUrl, socialLoginType);
+        User user = userService.findOrCreateUser(uid, email, displayName, photoUrl, socialLoginType);
+        // ✅ JWT 발급
+        String jwt = jwtProvider.generateToken(user.getUid());
+
+        return new LoginResponse(user, jwt);
     }
 
     public FirebaseToken verifyIdToken(String idToken) {

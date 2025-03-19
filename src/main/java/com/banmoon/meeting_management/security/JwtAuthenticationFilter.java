@@ -7,32 +7,30 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
-@Component
-@RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final JwtProvider jwtProvider;
+    private final JwtProvider jwtProvider; // final 유지
 
-
+    // ✅ 명시적 생성자 추가
+    public JwtAuthenticationFilter(JwtProvider jwtProvider) {
+        this.jwtProvider = jwtProvider;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
 
-        String idToken = request.getHeader("Authorization");  // 헤더에서 ID 토큰 가져옴
+        String idToken = request.getHeader("Authorization");
         if (idToken != null && idToken.startsWith("Bearer ")) {
-            idToken = idToken.substring(7);  // "Bearer " 제거
+            idToken = idToken.substring(7);
             try {
                 FirebaseToken decodedToken = jwtProvider.verifyIdToken(idToken);
-
-                // FirebaseToken에서 uid 가져오기
                 String uid = decodedToken.getUid();
-
-                // 인증 객체 생성 (현재는 인증 처리 생략, 필요 시 UserDetailsService 연동)
                 SecurityContextHolder.getContext().setAuthentication(new FirebaseAuthentication(uid));
             } catch (Exception e) {
                 System.out.println("Invalid Firebase Token: " + e.getMessage());
