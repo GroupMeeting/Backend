@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.banmoon.meeting_management.dto.LoginRequest;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
 

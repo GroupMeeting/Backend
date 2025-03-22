@@ -25,8 +25,8 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestHeader("Authorization") String idToken) {
+    @PostMapping("/register")
+    public ResponseEntity<?> registerUser(@RequestHeader("Authorization") String idToken) {
         try {
             FirebaseToken firebaseToken = authService.verifyIdToken(idToken);
             String uid = firebaseToken.getUid();
