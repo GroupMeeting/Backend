@@ -1,44 +1,38 @@
 package com.banmoon.meeting_management.entity;
 
-import com.banmoon.meeting_management.domain.SocialLoginType;
-import io.grpc.netty.shaded.io.netty.channel.unix.PeerCredentials;
 import jakarta.persistence.*;
-import lombok.*;
-
-import java.time.LocalDateTime;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String uid; // Firebase UID
-
-    @Column(nullable = false, unique = true)
-    private String email;
-
-    private String name;
+    @Column(unique = true, nullable = false)
+    private String username; // 아이디
 
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)  // Enum을 문자열로 저장
-    private SocialLoginType socialLoginType;
+    private String password; // 비밀번호 (추후 암호화 필요)
 
-    private String profileImage;
+    private String name;
+    private String birth;
+    private String phone;
+    private String address;
 
-    public User(String uid, String email, String displayName, String photoUrl, SocialLoginType socialLoginType) {
-        this.uid = uid;
-        this.email = email;
-        this.name = displayName;
-        this.profileImage = photoUrl;
-        this.socialLoginType = socialLoginType;
+    // 생성자
+    public User(String username, String password, String name, String birth, String phone, String address) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.birth = birth;
+        this.phone = phone;
+        this.address = address;
     }
 }
-
