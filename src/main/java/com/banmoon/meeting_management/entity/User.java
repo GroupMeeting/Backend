@@ -25,14 +25,7 @@ public class User {
     private String birth;
     private String phone;
     private String address;
+    private String profileImage;
 
-    // 생성자
-    public User(String username, String password, String name, String birth, String phone, String address) {
-        this.username = username;
-        this.password = password;
-        this.name = name;
-        this.birth = birth;
-        this.phone = phone;
-        this.address = address;
-    }
+
 }

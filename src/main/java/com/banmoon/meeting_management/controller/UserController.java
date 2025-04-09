@@ -2,6 +2,7 @@ package com.banmoon.meeting_management.controller;
 
 import com.banmoon.meeting_management.dto.LoginRequestDto;
 import com.banmoon.meeting_management.dto.SignupRequestDto;
+import com.banmoon.meeting_management.dto.UserResponseDto;
 import com.banmoon.meeting_management.entity.User;
 import com.banmoon.meeting_management.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -16,9 +17,9 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@RequestBody SignupRequestDto requestDto) {
-        User user = userService.signup(requestDto);
-        return ResponseEntity.ok(user);
+    public ResponseEntity<UserResponseDto> signup(@RequestBody SignupRequestDto requestDto) {
+        UserResponseDto response = userService.signup(requestDto);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/login")

@@ -26,8 +26,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/users/login", "/users/signup").permitAll()
-                        .requestMatchers("/clubs").permitAll()
+                        .requestMatchers("/users/login", "/users/signup", "/users/{id}").permitAll()
+                        .requestMatchers("/clubs/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class); // JwtFilter 위치 중요
