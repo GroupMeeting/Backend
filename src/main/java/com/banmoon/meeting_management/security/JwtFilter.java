@@ -26,9 +26,9 @@ public class JwtFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
 
         String uri = request.getRequestURI();
-        System.out.println("Request URI: " + uri); // 🔍 로그 확인
+        System.out.println("Request URI: " + uri); //  로그 확인
 
-        // ✅ 로그인 & 회원가입은 필터 타지 않도록
+        //  로그인 & 회원가입은 필터 타지 않도록
         if (uri.startsWith("/users/login") || uri.startsWith("/users/signup")) {
             filterChain.doFilter(request, response);
             return;
